@@ -5,7 +5,7 @@ services:
     command: ["--config=/etc/otel-config.yaml"]
     volumes:
       - /data/docker-compose/otel-config.yaml:/etc/otel-config.yaml
-      - /data/otel-collector/logs:/var/log/otelcol  # Collector 日志
+      - /data/otel-collector/logs:/var/log/otelcol  # Collector logs
     ports:
       - "1888:1888"   # pprof extension
       - "8888:8888"   # Prometheus metrics exposed by the Collector
@@ -17,6 +17,23 @@ services:
     depends_on:
       - loki
       - tempo
+  
+  node-exporter:
+    image: prom/node-exporter:latest
+    restart: unless-stopped
+    expose:
+      - 9100
+
+  cadvisor:
+    image: gcr.io/cadvisor/cadvisor:latest
+    restart: unless-stopped
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:rw
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+    expose:
+      - 8080
 
   prometheus:
     image: prom/prometheus:v3.3.0
@@ -51,7 +68,8 @@ services:
     ports:
       - "3000:3000"
     volumes:
-      - /data/grafana:/var/lib/grafana  # 仪表板和数据源配置
-      - /data/docker-compose/grafana-provisioning:/etc/grafana/provisioning  # 预配置
+      - /data/grafana:/var/lib/grafana  # Dashboard and data source configurations
+      - /data/docker-compose/grafana-provisioning:/etc/grafana/provisioning  # Pre-configured
     environment:
       - GF_SECURITY_ADMIN_PASSWORD=BLpl5Ri98f*OpA
+  

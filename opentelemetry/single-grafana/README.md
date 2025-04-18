@@ -56,14 +56,9 @@
     ```
 5. Check service status
     ```shell
-    $ sudo docker ps
-    CONTAINER ID   IMAGE                                          COMMAND                  CREATED          STATUS          PORTS                                                                              NAMES
-    6e5ccef485b9   grafana/grafana-enterprise:10.4.1              "/run.sh"                23 minutes ago   Up 23 minutes   0.0.0.0:3000->3000/tcp, [::]:3000->3000/tcp                                        docker-compose-grafana-1
-    587679b25a2a   prom/prometheus:v2.51.2                        "/bin/prometheus --c…"   23 minutes ago   Up 21 minutes   0.0.0.0:9090->9090/tcp, [::]:9090->9090/tcp                                        docker-compose-prometheus-1
-    e61ad377e012   grafana/loki:3.0.0                             "/usr/bin/loki -conf…"   23 minutes ago   Up 23 minutes   0.0.0.0:3100->3100/tcp, [::]:3100->3100/tcp                                        docker-compose-loki-1
-    c9a82fc46dac   grafana/tempo:2.3.1                            "/tempo -config.file…"   23 minutes ago   Up 23 minutes   0.0.0.0:3200->3200/tcp, [::]:3200->3200/tcp                                        docker-compose-tempo-1
-    b403e413eea3   otel/opentelemetry-collector-contrib:0.100.0   "/otelcol-contrib --…"   23 minutes ago   Up 23 minutes   0.0.0.0:4317-4318->4317-4318/tcp, [::]:4317-4318->4317-4318/tcp, 55678-55679/tcp   docker-compose-otel-collector-1
+    $  sudo docker ps
     ```
+
 ### Step 2: Run python test application
 1. Install dependencies
     ```shell

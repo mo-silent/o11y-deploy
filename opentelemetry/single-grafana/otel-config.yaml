@@ -23,7 +23,7 @@ exporters:
     endpoint: "tempo:4317"
     tls:
       insecure: true
-  debug: # 部署生产环境时可以关闭
+  debug: # It can be turned off when the production environment is deployed
     verbosity: detailed
 
 # Pipelines
