@@ -1,0 +1,16 @@
+server:
+  http_listen_port: 3200
+
+storage:
+  trace:
+    backend: s3
+    s3:
+      endpoint: s3.amazonaws.com
+      bucket: tempo
+
+distributor: 
+  receivers:
+    otlp:
+      protocols:
+        grpc:
+          endpoint: "tempo:4317"

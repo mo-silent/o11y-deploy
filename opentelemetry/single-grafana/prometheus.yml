@@ -1,0 +1,16 @@
+storage:
+  tsdb:
+    path: /prometheus
+
+scrape_configs:
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: [ 'localhost:9090' ] # 监控自身指标
+  
+  - job_name: 'otel-collector'
+    scrape_interval: 5s
+    static_configs:
+      - targets: ['otel-collector:8889'] # 监控 Collector 指标
+  - job_name: 'loki'
+    static_configs:
+      - targets: ['loki:3100'] # 监控 loki 指标

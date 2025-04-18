@@ -1,0 +1,40 @@
+# Receivers
+receivers:
+  otlp:
+    protocols:
+      grpc:
+        endpoint: 0.0.0.0:4317
+      http:
+        endpoint: 0.0.0.0:4318
+
+# Processors
+
+# Exporters
+exporters:
+  prometheus:
+    endpoint: "0.0.0.0:8889"
+    resource_to_telemetry_conversion:
+      enabled: true
+  otlphttp/logs:
+    endpoint: "http://loki:3100/otlp"
+    tls:
+      insecure: true
+  otlp/tempo:
+    endpoint: "tempo:4317"
+    tls:
+      insecure: true
+  debug: # 部署生产环境时可以关闭
+    verbosity: detailed
+
+# Pipelines
+service:
+  pipelines:
+    metrics:
+      receivers: [otlp]
+      exporters: [prometheus]
+    logs:
+      receivers: [otlp]
+      exporters: [otlphttp/logs]
+    traces:
+      receivers: [otlp]
+      exporters: [otlp/tempo, debug]
