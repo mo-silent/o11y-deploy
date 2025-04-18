@@ -20,7 +20,12 @@ services:
   
   node-exporter:
     image: prom/node-exporter:latest
+    command:
+      - '--path.rootfs=/host'
+    pid: host
     restart: unless-stopped
+    volumes:
+      - '/:/host:ro,rslave'
     expose:
       - 9100
 
