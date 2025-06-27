@@ -8,6 +8,18 @@ receivers:
         endpoint: 0.0.0.0:4318
 
 # Processors
+processors:
+  batch:
+    timeout: 1s
+    send_batch_size: 1024
+  resource:
+    attributes:
+      - key: service.name
+        action: upsert
+        from_attribute: service_name
+      - key: service.version
+        value: "1.0.0"
+        action: insert
 
 # Exporters
 exporters:
@@ -34,6 +46,7 @@ service:
       exporters: [prometheus]
     logs:
       receivers: [otlp]
+      processors: [batch, resource]
       exporters: [otlphttp/logs]
     traces:
       receivers: [otlp]
